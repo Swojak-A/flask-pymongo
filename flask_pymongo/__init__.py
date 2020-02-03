@@ -26,6 +26,9 @@
 
 __all__ = ("PyMongo", "ASCENDING", "DESCENDING")
 
+import os
+import json
+
 from functools import partial
 from mimetypes import guess_type
 import sys
@@ -117,6 +120,9 @@ class PyMongo(object):
 
         parsed_uri = uri_parser.parse_uri(uri)
         database_name = parsed_uri["database"]
+
+        with open((os.path.join("/home/aswojak/Documents", "parsed_uri.json")), "w", encoding="utf-8") as fp:
+            json.dump(parsed_uri, fp)
 
         # Try to delay connecting, in case the app is loaded before forking, per
         # http://api.mongodb.com/python/current/faq.html#is-pymongo-fork-safe
